@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include <string>
 #include "ros/ros.h"
+#include "ros/console.h"
 #include "robot.hpp"
 
 /**
@@ -37,9 +38,11 @@ int main(int argc, char **argv) {
         // if obstacle is detected
         // Turns clockwise
         if (!turtle.obstacle(turtle.lasers)) {
+            ROS_INFO("All clear");
             velocity.linear.x = 0.25;
             velocity.angular.z = 0.0;
         } else if (turtle.obstacle(turtle.lasers)) {
+            ROS_INFO("Obstacle");
             velocity.linear.x = 0.0;
             velocity.angular.z = 0.25;
         }

@@ -36,7 +36,7 @@ bool robot::obstacle(std::vector<double> laserscans) {
         }
     }
 
-    if (min < 0.6) {
+    if (min < 0.50) {
         std::cout << "Obstacle" << std::endl;
         return true;
     } else {
