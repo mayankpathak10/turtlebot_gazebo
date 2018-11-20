@@ -3,6 +3,7 @@
 #ifndef INCLUDE_ROBOT_HPP_
 #define INCLUDE_ROBOT_HPP_
 #include <sensor_msgs/LaserScan.h>
+#include <geometry_msgs/Twist.h>
 #include <vector>
 #include "ros/ros.h"
 #pragma once

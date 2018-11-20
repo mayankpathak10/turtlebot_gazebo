@@ -17,21 +17,33 @@
  */
 int main(int argc, char **argv) {
     ros::init(argc, argv, "walker");
-    ros::NodeHandle n;
-    ros::Publisher chatter_pub = n.advertise <geometry_msgs::Twist
-                                 > ("/cmd_vel_mux/input/teleop", 1000);
+    // robot object
     robot turtle;
+    // node handle
+    ros::NodeHandle n;
+    // message object created
+    geometry_msgs::Twist velocity;
+    // publishing frequency
     ros::Rate loop_rate(10);
 
     ros::Publisher pub = n.advertise<geometry_msgs
                          ::Twist>("/cmd_vel_mux/input/teleop", 1000);
     ros::Subscriber sub = n.subscribe
                           ("/scan", 1000, &robot::scanCallback, &turtle);
-    ros::spin();
 
-    int count = 0;
     while (ros::ok()) {
-        turtle.obstacle(turtle.lasers);
+        // If not obstacle detect in front of the robot
+        // goes straight
+        // if obstacle is detected
+        // Turns clockwise
+        if (!turtle.obstacle(turtle.lasers)) {
+            velocity.linear.x = 0.25;
+            velocity.angular.z = 0.0;
+        } else if (turtle.obstacle(turtle.lasers)) {
+            velocity.linear.x = 0.0;
+            velocity.angular.z = 0.25;
+        }
+
         ros::spinOnce();
         loop_rate.sleep();
     }
