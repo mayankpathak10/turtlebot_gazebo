@@ -7,7 +7,7 @@
    <node pkg="turtlebot_walker" name="walker" type="walker" output= "screen">
   </node>
    <node pkg = "rosbag" name= "rosbag_record_all" type= "record"
-  		args = "-a -x /camera/(.*) -O bagfile " output = "screen" 
+  		args = "-a -x /camera/(.*) -O turtlebot_walker_bagfile " output = "screen" 
   		if="$(eval rosbagFlag == true)">
   </node>
  </launch>
