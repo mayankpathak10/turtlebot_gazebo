@@ -16,7 +16,7 @@
 void robot::scanCallback(const sensor_msgs::LaserScan::ConstPtr& laser) {
     robot::lasers.clear();
     for (int i = 0; i < laser->ranges.size(); i++) {
-        std::cout << laser->ranges[i] << std::endl;
+        // std::cout << laser->ranges[i] << std::endl;
         robot::lasers.push_back(laser->ranges[i]);
     }
 }
@@ -29,18 +29,18 @@ void robot::scanCallback(const sensor_msgs::LaserScan::ConstPtr& laser) {
  * @return     boolean Obstacle status
  */
 bool robot::obstacle(std::vector<double> laserscans) {
-    double min = 65.0;
+    double min = 80.0;
     for (int i = 0; i < laserscans.size(); i++) {
         if (laserscans[i] < min) {
             min = laserscans[i];
         }
     }
 
-    if (min < 0.50) {
+    if (min < 0.85) {
         std::cout << "Obstacle" << std::endl;
         return true;
     } else {
-        std::cout << "All clear" << std::endl;
+        // std::cout << "Min Value is: " << min << std::endl;
         return false;
     }
 }

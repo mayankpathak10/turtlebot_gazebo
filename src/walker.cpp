@@ -25,13 +25,14 @@ int main(int argc, char **argv) {
     // message object created
     geometry_msgs::Twist velocity;
     // publishing frequency
-    ros::Rate loop_rate(10);
+
 
     ros::Publisher pub = n.advertise<geometry_msgs
                          ::Twist>("/cmd_vel_mux/input/teleop", 1000);
     ros::Subscriber sub = n.subscribe
-                          ("/scan", 1000, &robot::scanCallback, &turtle);
+                          ("/scan", 100, &robot::scanCallback, &turtle);
 
+    ros::Rate loop_rate(10);
     while (ros::ok()) {
         // If not obstacle detect in front of the robot
         // goes straight
@@ -39,14 +40,16 @@ int main(int argc, char **argv) {
         // Turns clockwise
         if (!turtle.obstacle(turtle.lasers)) {
             ROS_INFO("All clear");
+
             velocity.linear.x = 0.25;
             velocity.angular.z = 0.0;
-        } else if (turtle.obstacle(turtle.lasers)) {
+        }
+        if (turtle.obstacle(turtle.lasers)) {
             ROS_INFO("Obstacle");
             velocity.linear.x = 0.0;
             velocity.angular.z = 0.25;
         }
-
+        pub.publish(velocity);
         ros::spinOnce();
         loop_rate.sleep();
     }
