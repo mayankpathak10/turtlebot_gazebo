@@ -1,0 +1,6 @@
+mp@mp:~/808XWorkSpace/src/turtlebot_walker$ cpplint src/walker.cpp 
+Done processing src/walker.cpp
+mp@mp:~/808XWorkSpace/src/turtlebot_walker$ cpplint src/robot.cpp 
+Done processing src/robot.cpp
+mp@mp:~/808XWorkSpace/src/turtlebot_walker$ cpplint include/robot.hpp 
+Done processing include/robot.hpp
